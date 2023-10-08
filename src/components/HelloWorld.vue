@@ -78,18 +78,22 @@
     <!------------------SECTION-FOURTH-------------------->
     <section>
       <div>
-        <div v-if="mainPrompt">
-          <h3>Main Prompt</h3>
-          <p>{{ mainPrompt }}</p>
-        </div>
-        <div v-if="titlePrompt">
-          <h3>Title Prompt</h3>
-          <p>{{ titlePrompt }}</p>
-        </div>
-        <div v-if="boardPrompt">
-          <h3>Board Prompt</h3>
-          <p>{{ boardPrompt }}</p>
-        </div>
+        <p>
+          Urban elegance meets feline grace: Dive into a cityscape enriched by a
+          cat's charisma. | Metropolitan marvel: Witness a cute cat blending
+          seamlessly with city vibes and vistas. | Whiskered wanderer: A
+          charming cat's escapade amidst city lights and streets. | City tales
+          told through feline eyes: An adorable cat’s perspective of the buzzing
+          urban life. | Concrete and cuteness combined: A city-dwelling kitty
+          captured amidst skyscrapers' allure. | Streets, skyscrapers, and
+          whiskers: A heartwarming city snapshot with our feline friend. | The
+          purrfect blend of urban hustle and feline serenity: A cat's city
+          journey captured. | City chronicles and cat tales: Experience the
+          magic of urban life with a feline twist. | Feline finesse in a
+          metropolitan setting: A captivating scene of a city cat's adventures.
+        </p>
+        <p>{{ outputMain[1] }}</p>
+        <p>{{ outputMain.length }}</p>
       </div>
       <div>
         <div>
@@ -101,9 +105,7 @@
     </section>
     <!------------------SECTION-FOURTH-------------------->
     <!------------------SECTION-FIFTh-------------------->
-    <section class="fifth">
-      <div v-for="output in output"></div>
-    </section>
+    <section class="fifth"></section>
     <!------------------SECTION-FIFTh-------------------->
   </div>
 </template>
@@ -112,11 +114,15 @@
 export default {
   data() {
     return {
+      cta: "This is the CTA template.",
+      tag1: "#AmazingCatArt",
+      tag2: ["#exampleTag2_1", "#exampleTag2_2", "#exampleTag2_3"], // You can adjust these example tags
+      keyword: ["exampleKeyword1", "exampleKeyword2", "exampleKeyword3"], // You can adjust these example keywords
       input: "",
       inputTitle: "",
       inputBoard: "",
       inputBoardKeyword: "",
-      inputHash: "",
+      inputHash: "#CatPoster",
       inputMain: "",
       inputAlt: "",
       inputN: 6,
@@ -133,13 +139,14 @@ export default {
       mainPrompt: null,
       titlePrompt: null,
       output: "",
+      outputMain: [],
     };
   },
   methods: {
     generateMainPrompt() {
       this.boardPrompt = null;
       this.titlePrompt = null;
-      this.mainPrompt = `You are expert in SEO and digital marketing strategy that drives millions of customers. 
+      this.mainPrompt = `You are expert in SEO and digital marketing strategy that drives millions of customers.
 Create ${this.inputN} description about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. Descriptions should be not to precise so it can match any ${this.input}. ${this.inputMain}
 For the format: do not use quotation mark, only provide descriptions line by line.`;
     },
@@ -165,8 +172,34 @@ For the format: do not use quotation mark, only provide descriptions line by lin
     generateOutputAlt() {
       this.outputALt = `alt`;
     },
-    actionDescription() {
-      // Process GPT and deliver
+    async actionDescription() {
+      console.log("test");
+      try {
+        const descriptions = await this.fetchAndSplitDescriptions();
+        this.outputMain = this.modifyDescriptions(descriptions);
+        console.log(this.outputMain);
+      } catch (err) {
+        console.error("Failed to read clipboard contents:", err);
+      }
+    },
+
+    async fetchAndSplitDescriptions() {
+      const clipboardContent = await navigator.clipboard.readText();
+      return clipboardContent
+        .split("|")
+        .map((desc) => desc.trim())
+        .filter(Boolean);
+    },
+
+    modifyDescriptions(descriptions) {
+      return descriptions.map((desc) => {
+        const randomTag2 =
+          this.tag2[Math.floor(Math.random() * this.tag2.length)];
+        const randomKeyword =
+          this.keyword[Math.floor(Math.random() * this.keyword.length)];
+
+        return `${desc} ${this.cta} ${this.tag1} | ${randomTag2} | ${this.inputHash} | ${randomKeyword}.`;
+      });
     },
     actionTitle() {
       // Process GPT and deliver
@@ -256,6 +289,16 @@ textarea {
 .third div input,
 .third div button {
   width: 100%;
+}
+
+.fifth {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fifth p {
+  font-size: 8px;
 }
 
 input[type="number"] {
