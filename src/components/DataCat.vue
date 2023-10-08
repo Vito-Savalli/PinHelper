@@ -1,0 +1,52 @@
+<template></template>
+
+<script>
+export default {
+  data() {
+    return {
+      cta: [
+        "Follow us and don't miss your daily dose of #AmazingCatArt.",
+        "Join us and ensure you catch your daily quota of #AmazingCatArt.",
+        "Stay connected with us to never miss out on your daily dose of #AmazingCatArt.",
+        "Make sure you're following us so you don't miss your daily dose of #AmazingCatArt.",
+        "Be a part of our community and get your daily fix of #AmazingCatArt.",
+        "Join our followers' club and get your daily fill of #AmazingCatArt.",
+        "Follow us for your daily dose of #AmazingDogArt.",
+      ],
+      keyword: [
+        "Cat Art.",
+        "Cat Art Aesthetic.",
+        "Cat Art Aesthetics.",
+        "Cat Art Photography.",
+        "Cat Art Picture.",
+        "Cat Artwork.",
+        "Cat Art Wallpaper.",
+        "Cat Wallpaper.",
+        "Cat Photography.",
+        "Cat Photoshoot.",
+        "Cat Portrait.",
+        "Cat Shooting.",
+        "Cat Shoot.",
+        "Cat Image.",
+        "Cat Picture.",
+        "Digital Cat Art.",
+        "Digital Cat Aesthetic.",
+        "Creative Cat Art.",
+        "Cat Inspiration.",
+        "Cat Pfp.",
+        "Cat Reference.",
+        "Cat Poster.",
+        "Cat Print.",
+        "Cat Lover.",
+        "Cat Life.",
+        "Cat Images.",
+        "Cat Pictures.",
+        "Cute Cats.",
+        "Cute Cat Picture.",
+        "Cute Cat Image.",
+        "Cute Cat Aesthetic.",
+      ],
+    };
+  },
+};
+</script>
