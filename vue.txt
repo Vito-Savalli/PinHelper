@@ -1,74 +1,81 @@
-You are expert in SEO and digital marketing strategy that drives millions of customers. 
-Create (N) description about a (INPUT). Each description should be SEO optimized and around (LONG) character.  Descriptions should be not to precise so it can match any (INPUT).
-For the format: do not use quotation mark, only provide descriptions line by line.
+   ctas: [
+        "Follow us and don't miss your daily dose of #AmazingCatArt.",
+        "Join us and ensure you catch your daily quota of #AmazingCatArt.",
+        "Stay connected with us to never miss out on your daily dose of #AmazingCatArt.",
+        "Make sure you're following us so you don't miss your daily dose of #AmazingCatArt.",
+        "Be a part of our community and get your daily fix of #AmazingCatArt.",
+        "Join our followers' club and get your daily fill of #AmazingCatArt.",
+        "Follow us for your daily dose of #AmazingDogArt.",
+      ],
+
+      generalKeywords: [
+        "#ArtCat",
+        "#CatArt",
+        "#CatArtwork",
+        "#CatAesthetic",
+        "#CatAesthetics",
+        "#CatWallpaper",
+        "#CatPhotography",
+        "#CatPhotoshoot",
+        "#CatPortrait",
+        "#CatImage",
+        "#CatImages",
+        "#CatIllustration",
+        "#CatReference",
+        "#CatDigital",
+        "#DigitalCat",
+        "#CatPicture",
+        "#AiCat",
+        "#AestheticCat",
+        "#CatInspiration",
+        "#CatPoster",
+        "#CreativeCat",
+        "#CatShoot",
+        "#CatShooting",
+        "#CatPfp",
+        "#CatLove",
+        "#CatLife",
+        "#CuteCat",
+        "#CatPictures",
+        "#CuteCat",
+        "#CuteCatArt",
+        "#CuteCatAesthetic",
+        "#CuteCatPicture",
+        "#CuteCatImage",
+        "#CuteCatPhotography",
+      ],
 
 
-
-
-modifyDescriptions(descriptions) {
-  let selectedTag2Array = [];
-  let selectedKeywordArray;
-
-  // Logic to determine the tag2 array based on dropdown value
-  switch (this.selectedTag2Choice) {
-    case "tag2Concept":
-      selectedTag2Array = [...this.tag2Concept];
-      break;
-    case "tag2Cute":
-      selectedTag2Array = [...this.tag2Cute];
-      break;
-    case "tag2Color":
-      if (this.inputNwhite > 0) {
-        selectedTag2Array = [...selectedTag2Array, ...Array(this.inputNwhite).fill(this.tag2White).flat()];
-      }
-      if (this.inputNblack > 0) {
-        selectedTag2Array = [...selectedTag2Array, ...Array(this.inputNblack).fill(this.tag2Black).flat()];
-      }
-      // ... add conditions for other colors
-      break;
-    default:
-      selectedTag2Array = [...this.tag2]; // Default to original tag2 array
-  }
-
-  // Shuffle the array
-  selectedTag2Array.sort(() => 0.5 - Math.random());
-
-  // Logic to determine the keyword array based on dropdown value
-  // ... (Keep as is)
-
-  // Call the colorCards function
-  this.colorCards();
-
-  let tag2Index = 0;
-
-  return descriptions.map((desc) => {
-    const currentTag2 = selectedTag2Array[tag2Index % selectedTag2Array.length];
-    const randomKeyword = selectedKeywordArray[Math.floor(Math.random() * selectedKeywordArray.length)];
-    
-    tag2Index++;
-    
-    return `${desc} ${this.cta} ${this.tag1} | ${currentTag2} | ${this.inputHash} | ${randomKeyword}.`;
-  });
-}
-
-
-
-
-
-    // Logic to determine the keyword array based on dropdown value
-    switch (this.selectedChoice) {
-      case "keywordCute":
-        selectedKeywordArray = this.keywordCute;
-        break;
-      case "keywordPhoto":
-        selectedKeywordArray = this.keywordPhoto;
-        break;
-      case "keywordIllus":
-        selectedKeywordArray = this.keywordIllus;
-        break;
-      case "keywordTat":
-        selectedKeywordArray = this.keywordTat;
-        break;
-      default:
-        selectedKeywordArray = this.keyword; // Default to original keyword array if none is selected
-    }
+      lastKeywords: [
+        "Cat Art.",
+        "Cat Art Aesthetic.",
+        "Cat Art Aesthetics.",
+        "Cat Art Photography.",
+        "Cat Art Picture.",
+        "Cat Artwork.",
+        "Cat Art Wallpaper.",
+        "Cat Wallpaper.",
+        "Cat Photography.",
+        "Cat Photoshoot.",
+        "Cat Portrait.",
+        "Cat Shooting.",
+        "Cat Shoot.",
+        "Cat Image.",
+        "Cat Picture.",
+        "Digital Cat Art.",
+        "Digital Cat Aesthetic.",
+        "Creative Cat Art.",
+        "Cat Inspiration.",
+        "Cat Pfp.",
+        "Cat Reference.",
+        "Cat Poster.",
+        "Cat Print.",
+        "Cat Lover.",
+        "Cat Life.",
+        "Cat Images.",
+        "Cat Pictures.",
+        "Cute Cats.",
+        "Cute Cat Picture.",
+        "Cute Cat Image.",
+        "Cute Cat Aesthetic.",
+      ],

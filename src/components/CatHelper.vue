@@ -38,27 +38,29 @@
           <option value="keywordTat">Tattoo</option>
         </select>
       </div>
-
-      <div v-if="selectedTag2Choice === 'tag2Color'">
-   <div>
-    <label for="inputNblack">black</label>
-    <input min="0" type="number" v-model="inputNblack" id="inputNblack" />
-  </div>
-  <div>
+      <div>
+      <div class="colors" v-if="selectedTag2Choice === 'tag2Color'">
+        <div>
+        <label for="inputNblack">black</label>
+        <input min="0" type="number" v-model="inputNblack" id="inputNblack" />
+      </div>
+        <div>
     <label for="inputNwhite">white</label>
     <input min="0" type="number" v-model="inputNwhite" id="inputNwhite" />
   </div>
-  <div>
-    <label for="inputNorange">orange</label>
+        <div>
+
+    <label for="inputNorange">orang</label>
     <input min="0" type="number" v-model="inputNorange" id="inputNorange" />
   </div>
-  <div>
+        <div>
     <label for="inputNgrey">grey</label>
     <input min="0" type="number" v-model="inputNgrey" id="inputNgrey" />
   </div>
 </div>
+   
+  </div>
 
-<ChronoVue/>
     </section>
     <!-----------------1-SECTION-FIRST-1------------------->
     <!-----------------2-SECTION-SECOND-2------------------->
@@ -141,79 +143,36 @@
     </section>
     <!-----------------5-SECTION-FIFTh-5------------------->
   </div>
+  <DataCat ref="dataComp" />
 </template>
 
 <script>
-import ChronoVue from "../components/ChronoVue.vue"
+
+import DataCat from '../components/DataCat.vue'
+
 export default {
   components: {
-ChronoVue,
+DataCat,
   },
   data() {
     return {
-      cta: "This is the CTA template.",
-      tag1: "#AmazingCatArt",
-      tag2: ["#exampleTag--1", "#exampleTag--2", "#exampleTag--3"],
-      tag2Concept: [
-        "#exampleTagConcept--1",
-        "#exampleTagConcept--2",
-        "#exampleTagConcept--3",
-        "#exampleTagConcept--1",
-        "#exampleTagConcept--2",
-        "#exampleTagConcept--3",
-        "#exampleTagConcept--1",
-        "#exampleTagConcept--2",
-        "#exampleTagConcept--3",
-      ],
-      tag2Cute: [
-        "#exampleTagCute--1",
-        "#exampleTagCute--2",
-        "#exampleTagCute--3",
-        "#exampleTagCute--1",
-        "#exampleTagCute--2",
-        "#exampleTagCute--3",
-        "#exampleTagCute--1",
-        "#exampleTagCute--2",
-        "#exampleTagCute--3",
-      ],
-      tag2Color: [
-        "#exampleTagColor--1",
-        "#exampleTagColor--2",
-        "#exampleTagColor--3",
-        "#exampleTagColor--1",
-        "#exampleTagColor--2",
-        "#exampleTagColor--3",
-        "#exampleTagColor--1",
-        "#exampleTagColor--2",
-        "#exampleTagColor--3",
-      ],
-        tag2White: [
-        "#exampleTagWhite--1",
-        "#exampleTagWhite--2",
-        "#exampleTagWhite--3",
-      ],
-      tag2Black: [
-        "#exampleTagBlack--1",
-        "#exampleTagBlack--2",
-        "#exampleTagBlack--3",
-      ],
-      tag2Orange: [
-        "#exampleTagOrange--1",
-        "#exampleTagOrange--2",
-        "#exampleTagOrange--3",
-      ],
-      tag2Grey: [
-        "#exampleTagGrey--1",
-        "#exampleTagGrey--2",
-        "#exampleTagGrey--3",
-      ],
+      cta: [],
+      tag1: "",
+      tag2: [""],
+      tag2Concept: [""],
+      tag2Cute: [""],
+      tag2Color: [""],
+      tag2White: [""],
+      tag2Black: [""],
+      tag2Orange: [""],
+      tag2Grey: [""],
 
       // KEYWORD
-      keyword: ["exampleKeyword1", "exampleKeyword2", "exampleKeyword3"],
-      keywordCute: ["keywordCute1", "keywordCute2", "keywordCute3"],
-      keywordPhoto: ["keywordPhoto1", "keywordPhoto2", "keywordPhoto3"],
-      keywordIllus: ["keywordIllus1", "keywordIllus2", "keywordIllus3"],
-      keywordTat: ["keywordTat1", "keywordTat2", "keywordTat3"],
+      keyword: [],
+      keywordCute: [""],
+      keywordPhoto: [""],
+      keywordIllus: [""],
+      keywordTat: [""],
       // KEYWORD
       input: "",
       inputTitle: "",
@@ -249,21 +208,60 @@ cardColors: [],
       console.log('outputAltArr[I]' + this.outputAltArr[this.selectedIndex]);
     },
     generateMainPrompt() {
-      this.boardPrompt = null;
-      this.titlePrompt = null;
-      this.mainPrompt = `You are expert in SEO and digital marketing strategy that drives millions of customers.
-Create ${this.inputN} description about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. Descriptions should be not to precise so it can match any ${this.input}. ${this.inputMain}
-For the format: do not use quotation mark, only provide descriptions line by line.`;
-    },
+    this.boardPrompt = null;
+    this.titlePrompt = null;
+
+    let colorDescriptions = [];
+    const colorsCounts = [
+        {color: 'white', count: this.inputNwhite},
+        {color: 'black', count: this.inputNblack},
+        {color: 'orange', count: this.inputNorange},
+        {color: 'grey', count: this.inputNgrey},
+    ];
+
+    let totalColoredCats = 0;
+
+    // WORK HERE //
+    colorsCounts.forEach(colorCount => {
+        if (colorCount.count > 0) {
+            colorDescriptions.push(` ${colorCount.count} description${colorCount.count > 1 ? 's' : ''} of a ${colorCount.color} cat`);
+            totalColoredCats += colorCount.count;
+        }
+    });
+
+    let finalColorInstruction = '';
+    if (colorDescriptions.length === 1) {
+        finalColorInstruction = colorDescriptions[0];
+    } else if (colorDescriptions.length > 1) {
+        finalColorInstruction = colorDescriptions.slice(0, -1).join(', ') + ' and ' + colorDescriptions[colorDescriptions.length - 1];
+    }
+
+    if (this.inputN > totalColoredCats) {
+        finalColorInstruction += `. For the rest of the descriptions, the cat color is not determined.`;
+    } else {
+        finalColorInstruction += '.';
+    }
+
+    this.mainPrompt = `You are an expert in SEO and digital marketing strategy that drives millions of customers.
+Create ${this.inputN} descriptions about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. ${finalColorInstruction} Descriptions should be not too precise so it can match any ${this.input}. ${this.inputMain}
+For the format: do not use quotation marks, do note add comment or other text, only provide descriptions line by line separated by this character: "|"`;
+
+    // Copy to clipboard
+    this.copyToClip(this.mainPrompt);
+},
+
+
     generateTitlePrompt() {
       this.mainPrompt = null;
       this.boardPrompt = null;
-      this.titlePrompt = `For each descriptions, create SEO optimized title. ${this.inputTitle} Do not use quotation mark, only provide each title line by line.`;
+      this.titlePrompt = `For each descriptions, create SEO optimized title. ${this.inputTitle} Do not use quotation mark, only provide each title line by line separated by a |.`;
+      this.copyToClip(this.titlePrompt);
     },
     generateBoardPrompt() {
       this.mainPrompt = null;
       this.titlePrompt = null;
       this.boardPrompt = `You are expert in SEO and digital marketing strategy that drives millions of audience. Create SEO optimized description for my pinterest board. ${this.inputBoard} This pinterest board is a collection of ${this.input}. description should be in a natural human tone. description should be around 460 character. Do not use hashtags. ${this.inputBoardKeyword}`;
+      this.copyToClip(this.boardPrompt);
     },
     generateOutputMain() {
       this.outputMain = `description + CTA + + keyword`;
@@ -356,7 +354,8 @@ const totalColoredCats = this.inputNwhite + this.inputNblack + this.inputNorange
 
 const updatedDescriptions = descriptions.map((desc, descIndex) => {
     const currentTag2 = selectedTag2Array[tag2Index] || this.tag2[Math.floor(Math.random() * this.tag2.length)];
-    const randomKeyword = selectedKeywordArray[Math.floor(Math.random() * selectedKeywordArray.length)];
+  const randomKeyword = selectedKeywordArray[Math.floor(Math.random() * selectedKeywordArray.length)];
+  const randomCTA = this.cta[Math.floor(Math.random() * this.cta.length)];
 
     let altText = this.inputAlt;
 
@@ -369,7 +368,7 @@ const updatedDescriptions = descriptions.map((desc, descIndex) => {
 
     tag2Index++;
 
-    return `${desc} ${this.cta} ${this.tag1} | ${currentTag2} | ${this.inputHash} | ${randomKeyword}.`;
+    return `${desc} ${randomCTA} ${this.tag1} | ${currentTag2} | ${this.inputHash} | ${randomKeyword}.`;
 });
 
 return updatedDescriptions;
@@ -454,6 +453,24 @@ randomFromArray(arr) {
         console.log("No content available to copy for the provided type");
       }
     },
+    copyToClip(text) {
+    // Create a text area, append it to the document offscreen
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = 'fixed';  // Avoids scrolling to bottom of page in MS Edge
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+        document.execCommand('copy');  // Copy the text inside the text area
+    } catch (err) {
+        console.error('Failed to copy text: ', err);
+    }
+
+    document.body.removeChild(textArea);  // Remove the text area from the document
+},
+
     selectCard(index) {
       this.selectedIndex = index;
     },
@@ -476,6 +493,24 @@ randomFromArray(arr) {
 }
 
   },
+  mounted() {
+  this.cta = this.$refs.dataComp.cta;
+  this.tag1 = this.$refs.dataComp.tag1;
+  this.tag2 = [...this.$refs.dataComp.tag2];
+  this.tag2Concept = [...this.$refs.dataComp.tag2Concept];
+  this.tag2Cute = [...this.$refs.dataComp.tag2Cute];
+  this.tag2Color = [...this.$refs.dataComp.tag2Color];
+  this.tag2White = [...this.$refs.dataComp.tag2White];
+  this.tag2Black = [...this.$refs.dataComp.tag2Black];
+  this.tag2Orange = [...this.$refs.dataComp.tag2Orange];
+  this.tag2Grey = [...this.$refs.dataComp.tag2Grey];
+  this.keyword = [...this.$refs.dataComp.keyword];
+  this.keywordCute = [...this.$refs.dataComp.keywordCute];
+  this.keywordPhoto = [...this.$refs.dataComp.keywordPhoto];
+  this.keywordIllus = [...this.$refs.dataComp.keywordIllus];
+  this.keywordTat = [...this.$refs.dataComp.keywordTat];
+}
+  
 };
 </script>
 
@@ -526,8 +561,9 @@ textarea {
 
 .first {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: flex-start;
+  gap: 4px
 }
 
 .first div {
@@ -659,7 +695,11 @@ textarea {
  
 }
 
-
+.colors {
+  display: flex;
+  flex-direction: row  !important;
+  align-self: flex-end;
+}
 
 label {
   font-size: 14px;
