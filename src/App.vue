@@ -1,7 +1,7 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import CatHelper from "./components/CatHelper.vue";
 </script>
 
 <template>
-  <HelloWorld />
+  <CatHelper />
 </template>

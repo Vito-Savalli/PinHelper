@@ -17,3 +17,35 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  overflow: hidden;
+}
+
+input[type="number"] {
+  font: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type="text"] {
+  font: 30px;
+  width: 60px;
+}
+
+.nav {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  top: 2px;
+  right: -7px;
+  transform: scale(0.8);
+}
+
+.nav div {
+  border: 1px solid;
+  border-radius: 100px;
+  background-color: rgba(97, 94, 94, 0.645);
+  padding: 0 4px;
+  cursor: pointer;
+}
