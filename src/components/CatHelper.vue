@@ -243,8 +243,8 @@ cardColors: [],
     }
 
     this.mainPrompt = `You are an expert in SEO and digital marketing strategy that drives millions of customers.
-Create ${this.inputN} descriptions about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. ${finalColorInstruction} Descriptions should be not too precise so it can match any ${this.input}. ${this.inputMain}
-For the format: do not use quotation marks, do note add comment or other text, only provide descriptions line by line separated by this character: "|"`;
+Create ${this.inputN} descriptions about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. ${selectedTag2Choice === "Color" ? finalColorInstruction : ''} Descriptions should be not too precise so it can match any ${this.input}. ${this.inputMain}.  description should be at least ${this.inputN}
+For the format: do not use quotation marks, do note add comment or other text, only provide descriptions line by line separated by this character: "|".`;
 
     // Copy to clipboard
     this.copyToClip(this.mainPrompt);
@@ -343,7 +343,6 @@ For the format: do not use quotation marks, do note add comment or other text, o
         selectedKeywordArray = this.keyword; // Default to original keyword array if none is selected
     }
 
-   // ... [Rest of your code]
 
 this.colorCards();  // Setup the card colors based on the input
 
@@ -368,7 +367,7 @@ const updatedDescriptions = descriptions.map((desc, descIndex) => {
 
     tag2Index++;
 
-    return `${desc} ${randomCTA} ${this.tag1} | ${currentTag2} | ${this.inputHash} | ${randomKeyword}.`;
+    return `${desc} ${randomCTA} ${this.tag1} | ${currentTag2} | ${this.inputHash} | ${randomKeyword}`;
 });
 
 return updatedDescriptions;
