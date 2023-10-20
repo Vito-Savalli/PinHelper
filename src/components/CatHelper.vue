@@ -148,7 +148,7 @@
 
 <script>
 
-import DataCat from '../components/DataCat.vue'
+import DataCat from '../components/Data/DataCat.vue'
 
 export default {
   components: {
@@ -242,9 +242,9 @@ cardColors: [],
         finalColorInstruction += '.';
     }
 
-    this.mainPrompt = `You are an expert in SEO and digital marketing strategy that drives millions of customers.
-Create ${this.inputN} descriptions about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. ${selectedTag2Choice === "Color" ? finalColorInstruction : ''} Descriptions should be not too precise so it can match any ${this.input}. ${this.inputMain}.  description should be at least ${this.inputN}
-For the format: do not use quotation marks, do note add comment or other text, only provide descriptions line by line separated by this character: "|".`;
+    this.mainPrompt = `You are expert in SEO and digital marketing strategy that drives millions of audience in Pinterest.
+Create ${this.inputN} descriptions about a ${this.input}. Each description should be SEO optimized and around ${this.inputLong} character. ${this.selectedTag2Choice === "tag2Color" ? finalColorInstruction : ''} Descriptions should be not too precise so it can match any ${this.input}. ${this.inputMain + ''}description should be at least ${this.inputLong} character.
+For the format: do not use quotation marks, do note add comment or other text, only provide descriptions line by line separated by this character "|".`;
 
     // Copy to clipboard
     this.copyToClip(this.mainPrompt);
@@ -260,7 +260,7 @@ For the format: do not use quotation marks, do note add comment or other text, o
     generateBoardPrompt() {
       this.mainPrompt = null;
       this.titlePrompt = null;
-      this.boardPrompt = `You are expert in SEO and digital marketing strategy that drives millions of audience. Create SEO optimized description for my pinterest board. ${this.inputBoard} This pinterest board is a collection of ${this.input}. description should be in a natural human tone. description should be around 460 character. Do not use hashtags. ${this.inputBoardKeyword}`;
+      this.boardPrompt = `You are expert in SEO and digital marketing strategy that drives millions of audience in Pinterest. Create SEO optimized description for my pinterest board. ${this.inputBoard} This pinterest board is a collection of ${this.input}. description should be written in a natural human tone. description must be less than 480 character. Do not use hashtags. ${this.inputBoardKeyword}`;
       this.copyToClip(this.boardPrompt);
     },
     generateOutputMain() {
@@ -489,10 +489,9 @@ randomFromArray(arr) {
     }
     // If "cat" is not found, just return the original altText
     return altText;
-}
+    },
 
-  },
-  mounted() {
+    setupp() {
   this.cta = this.$refs.dataComp.cta;
   this.tag1 = this.$refs.dataComp.tag1;
   this.tag2 = [...this.$refs.dataComp.tag2];
@@ -507,8 +506,15 @@ randomFromArray(arr) {
   this.keywordCute = [...this.$refs.dataComp.keywordCute];
   this.keywordPhoto = [...this.$refs.dataComp.keywordPhoto];
   this.keywordIllus = [...this.$refs.dataComp.keywordIllus];
-  this.keywordTat = [...this.$refs.dataComp.keywordTat];
-}
+  this.keywordTat = [...this.$refs.dataComp.keywordTat]; 
+    }
+
+  },
+  mounted() {
+    this.setupp();
+  }
+
+
   
 };
 </script>
